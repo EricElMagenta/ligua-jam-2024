@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dlaanq0xdbrdd"]
+
+[ext_resource type="Script" path="res://entities/power-ups/power_up_machinegun.gd" id="1_fn5tq"]
+[ext_resource type="Texture2D" uid="uid://c3r6t3rb8wd3n" path="res://sprites/power-ups/weapon-machinegun.png" id="1_m8ti4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v2d7v"]
+size = Vector2(16, 16)
+
+[node name="power-up-machinegun" type="Area2D"]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_fn5tq")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_m8ti4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_v2d7v")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

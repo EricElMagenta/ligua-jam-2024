@@ -2,10 +2,13 @@ extends CharacterBody2D
 class_name Player
 
 const SPEED = 100.0
+const WEAPON = ["default", "machinegun"]
 
-var health = 100
-var can_shoot = true
-var damage_blink = false
+var health = 100 # VIDA
+var can_shoot = true # COOLDOWN
+var damage_blink = false # INVENCIBILIDAD DESPUÉS DE RECIBIR DAÑO
+var weapon_index = 0
+var current_anim_state = "idle"
 
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var projectile = load("res://entities/player/projectile.tscn")
@@ -16,7 +19,6 @@ func _physics_process(delta):
 	handle_animation(input_direction)
 	handle_shooting()
 	move_and_slide()
-	
 	
 	if health < 1: get_tree().reload_current_scene()
 
@@ -49,13 +51,37 @@ func handle_shooting():
 		can_shoot = true
 
 func handle_animation(input_direction):
+	# Power-up actual para hacer las animaciones
+	var current_weapon = WEAPON[weapon_index]
+	
 	# Caminar en diferentes direcciones (debe haber alguna mejor forma de hacer esto)
 	if input_direction == Vector2(0,0):
-		animated_sprite_2d.play("idle")
+		current_anim_state = "idle"
 	elif input_direction[0] == 0:
-		if input_direction[1] > 0: animated_sprite_2d.play("walk-down")
-		elif input_direction[1] < 0: animated_sprite_2d.play("walk-up")
+		if input_direction[1] > 0: current_anim_state = "walk_down"
+		elif input_direction[1] < 0: current_anim_state = "walk_up"
 	elif input_direction[0] != 0:
-		animated_sprite_2d.play("walk-side")
+		current_anim_state = "walk_side"
 		if input_direction[0] < 0: animated_sprite_2d.scale.x = -1
 		else: animated_sprite_2d.scale.x = 1
+	
+	animated_sprite_2d.play(current_weapon + "_" + current_anim_state)
+
+#func handle_animation(input_direction):
+#	# Caminar en diferentes direcciones (debe haber alguna mejor forma de hacer esto)
+#	if input_direction == Vector2(0,0):
+#		animated_sprite_2d.play("idle")
+#	elif input_direction[0] == 0:
+#		if input_direction[1] > 0: animated_sprite_2d.play("walk_down")
+#		elif input_direction[1] < 0: animated_sprite_2d.play("walk_up")
+#	elif input_direction[0] != 0:
+#		animated_sprite_2d.play("walk_side")
+#		if input_direction[0] < 0: animated_sprite_2d.scale.x = -1
+#		else: animated_sprite_2d.scale.x = 1
+		
+######################################################################### SEÑALES ##############################################################
+func _on_hitbox_area_entered(area):
+	if area is PowerUp:
+		if area.type == "machinegun":
+			weapon_index = 1
+		area.queue_free()

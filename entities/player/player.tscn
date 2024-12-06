@@ -1,6 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://prbywccmh2ij"]
+[gd_scene load_steps=27 format=3 uid="uid://prbywccmh2ij"]
 
 [ext_resource type="Script" path="res://entities/player/player.gd" id="1_7wm1o"]
+[ext_resource type="Texture2D" uid="uid://b6ufu2h2ni7g8" path="res://sprites/player/player-machinegun.png" id="3_4o20v"]
 [ext_resource type="Texture2D" uid="uid://cqwp35ddt0rab" path="res://sprites/player/player_sprites-Sheet.png" id="3_51gmf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rl1m5"]
@@ -46,6 +47,46 @@ region = Rect2(64, 0, 16, 16)
 atlas = ExtResource("3_51gmf")
 region = Rect2(80, 0, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_1l271"]
+atlas = ExtResource("3_4o20v")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_77no6"]
+atlas = ExtResource("3_4o20v")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s0bwl"]
+atlas = ExtResource("3_4o20v")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mhgvw"]
+atlas = ExtResource("3_4o20v")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dbit8"]
+atlas = ExtResource("3_4o20v")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aj7na"]
+atlas = ExtResource("3_4o20v")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7qcxb"]
+atlas = ExtResource("3_4o20v")
+region = Rect2(144, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ecyy"]
+atlas = ExtResource("3_4o20v")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7gu0y"]
+atlas = ExtResource("3_4o20v")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d8ebg"]
+atlas = ExtResource("3_4o20v")
+region = Rect2(96, 0, 16, 16)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_2skpv"]
 animations = [{
 "frames": [{
@@ -53,7 +94,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_63p2g")
 }],
 "loop": true,
-"name": &"idle",
+"name": &"default_idle",
 "speed": 5.0
 }, {
 "frames": [{
@@ -70,7 +111,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_6xe8g")
 }],
 "loop": true,
-"name": &"walk-down",
+"name": &"default_walk_down",
 "speed": 12.0
 }, {
 "frames": [{
@@ -87,7 +128,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_iu402")
 }],
 "loop": true,
-"name": &"walk-side",
+"name": &"default_walk_side",
 "speed": 12.0
 }, {
 "frames": [{
@@ -104,7 +145,66 @@ animations = [{
 "texture": SubResource("AtlasTexture_xdysr")
 }],
 "loop": true,
-"name": &"walk-up",
+"name": &"default_walk_up",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1l271")
+}],
+"loop": true,
+"name": &"machinegun_idle",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_77no6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s0bwl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_77no6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mhgvw")
+}],
+"loop": true,
+"name": &"machinegun_walk_down",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dbit8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aj7na")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dbit8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7qcxb")
+}],
+"loop": true,
+"name": &"machinegun_walk_side",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ecyy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7gu0y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ecyy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d8ebg")
+}],
+"loop": true,
+"name": &"machinegun_walk_up",
 "speed": 12.0
 }]
 
@@ -115,6 +215,7 @@ size = Vector2(11, 13)
 collision_layer = 2
 collision_mask = 9
 script = ExtResource("1_7wm1o")
+metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 0)
@@ -122,8 +223,9 @@ shape = SubResource("RectangleShape2D_rl1m5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_2skpv")
-animation = &"idle"
-frame_progress = 0.265241
+animation = &"machinegun_walk_up"
+frame = 2
+frame_progress = 0.36939
 
 [node name="Camera2D" type="Camera2D" parent="."]
 limit_left = 0
@@ -133,9 +235,12 @@ limit_bottom = 256
 editor_draw_limits = true
 
 [node name="hitbox" type="Area2D" parent="."]
-collision_mask = 4
+collision_layer = 0
+collision_mask = 12
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
 position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_w3e6h")
 debug_color = Color(0.552139, 0.400483, 1, 0.42)
+
+[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
