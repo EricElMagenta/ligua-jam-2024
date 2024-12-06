@@ -31,21 +31,21 @@ func hand_throw_trajectory():
 
 func explode():
 	rotation = 0
-	collision_shape_2d.disabled = false
+	collision_shape_2d.set_deferred("disabled", true)
 	animated_sprite_2d.play("SPLORT!")
 	await get_tree().create_timer(0.5).timeout
 	queue_free()
 
 ####################################################### SEÑALES ##############################################################
-func _on_body_entered(body):
+func _on_body_entered(body):	
 	# Daña a los enemigos si son enemigos
 	if body && body is Enemy:
 		body.health -= damage
-		
 		# Elimina el enemigo si se queda sin vida
 		if body.health <= 0:
 			body.queue_free()
 			return
 		body.modulate = Color(1,0,0)
-		await get_tree().create_timer(0.1).timeout
+		await get_tree().create_timer(0.05).timeout
 		body.modulate = Color(1,1,1)
+		queue_free()
