@@ -4,10 +4,9 @@ extends CharacterBody2D
 const SPEED = 50.0
 const DAMAGE = 8
 
-var health = 20
+var health = 10
 var player_pos
 var target_pos
-
 
 @onready var player = get_parent().get_node("Player")
 @onready var animated_sprite_2d = $AnimatedSprite2D

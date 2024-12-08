@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cm6txmo4y6kcu"]
+[gd_scene load_steps=7 format=3 uid="uid://cm6txmo4y6kcu"]
 
 [ext_resource type="Texture2D" uid="uid://beykt5t50gcp3" path="res://sprites/world/world-1.png" id="1_f6r25"]
 [ext_resource type="Script" path="res://entities/world/world_1.gd" id="1_j64mq"]
 [ext_resource type="PackedScene" uid="uid://prbywccmh2ij" path="res://entities/player/player.tscn" id="2_e3civ"]
 [ext_resource type="PackedScene" uid="uid://dhdiqy6rg4gr7" path="res://entities/enemies/enemy-1.tscn" id="4_67pjp"]
 [ext_resource type="PackedScene" uid="uid://dlaanq0xdbrdd" path="res://entities/power-ups/power_up_machinegun.tscn" id="5_jshfb"]
+[ext_resource type="PackedScene" uid="uid://hp6dix5oygp4" path="res://entities/power-ups/power_up_blowgun.tscn" id="6_herc6"]
 
 [node name="World1" type="Node2D"]
 script = ExtResource("1_j64mq")
@@ -33,5 +34,14 @@ autostart = true
 
 [node name="power-up-machinegun" parent="." instance=ExtResource("5_jshfb")]
 position = Vector2(86, 62)
+
+[node name="power-up-machinegun2" parent="." instance=ExtResource("5_jshfb")]
+position = Vector2(66, 108)
+
+[node name="PowerUpBlowgun" parent="." instance=ExtResource("6_herc6")]
+position = Vector2(118, 101)
+
+[node name="PowerUpBlowgun2" parent="." instance=ExtResource("6_herc6")]
+position = Vector2(54, 82)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

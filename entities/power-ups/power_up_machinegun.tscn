@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v2d7v"]
 size = Vector2(16, 16)
 
-[node name="power-up-machinegun" type="Area2D"]
+[node name="PowerUpMachinegun" type="Area2D"]
 collision_layer = 8
 collision_mask = 2
 script = ExtResource("1_fn5tq")

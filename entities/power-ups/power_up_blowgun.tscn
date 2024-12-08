@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://hp6dix5oygp4"]
+
+[ext_resource type="Script" path="res://entities/power-ups/power_up_blowgun.gd" id="1_3bvly"]
+[ext_resource type="Texture2D" uid="uid://xj0fspbhtneu" path="res://sprites/power-ups/weapon-blowgun.png" id="1_d0ja8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lhdxm"]
+size = Vector2(16, 16)
+
+[node name="PowerUpBlowgun" type="Area2D"]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_3bvly")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_d0ja8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_lhdxm")

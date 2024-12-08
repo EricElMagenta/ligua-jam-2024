@@ -1,5 +1,4 @@
-extends Area2D
-class_name PowerUp
+extends PowerUp
 
 var type : String = 'machinegun'
 

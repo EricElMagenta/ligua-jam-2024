@@ -2,11 +2,13 @@ class_name Projectile
 extends Area2D
 
 const SPEED = 5
-const ROTATION_SPEED = 0.3
+const DEFAULT_SPEED = 3
+const ROTATION_SPEED = 0.2
 
 var damage = 10
 var spawn_pos : Vector2 # Posición de spawn
 var target_pos : Vector2 # Objetivo (donde clickeó el jugador)
+var weapon_index = 0
 
 # Hitbox del dulce
 @onready var collision_shape_2d = $CollisionShape2D
@@ -19,13 +21,25 @@ func _ready():
 
 func _physics_process(delta):
 	rotation += ROTATION_SPEED
-	hand_throw_trajectory()
+	if weapon_index == 0: default_shooting()
+	elif weapon_index == 1: machinegun_shooting()
+	elif weapon_index == 2: blowgun_shooting()
 
 ###################################################### FUNCIONES AUXILIARES ###################################################
 	# Lanzamiento por defecto
-func hand_throw_trajectory():
+func default_shooting():
 	# Se dirige a donde hizo click el jugador y desparece
+	position = position.move_toward(target_pos, DEFAULT_SPEED)
+	if position == target_pos: 
+		explode()
+
+func machinegun_shooting():
 	position = position.move_toward(target_pos, SPEED)
+	if position == target_pos: 
+		explode()
+		
+func blowgun_shooting():
+	position = position.move_toward(target_pos, SPEED*2)
 	if position == target_pos: 
 		explode()
 
@@ -41,11 +55,9 @@ func _on_body_entered(body):
 	# Daña a los enemigos si son enemigos
 	if body && body is Enemy:
 		body.health -= damage
+		if weapon_index != 2: queue_free()
 		# Elimina el enemigo si se queda sin vida
 		if body.health <= 0:
 			body.queue_free()
 			return
-		body.modulate = Color(1,0,0)
-		await get_tree().create_timer(0.05).timeout
-		body.modulate = Color(1,1,1)
-		queue_free()
+		

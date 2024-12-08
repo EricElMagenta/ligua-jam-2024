@@ -1,11 +1,52 @@
-[gd_scene load_steps=27 format=3 uid="uid://prbywccmh2ij"]
+[gd_scene load_steps=38 format=3 uid="uid://prbywccmh2ij"]
 
 [ext_resource type="Script" path="res://entities/player/player.gd" id="1_7wm1o"]
+[ext_resource type="Texture2D" uid="uid://dg6ffpiu2436a" path="res://sprites/player/player_blowgun.png" id="2_jdmdk"]
 [ext_resource type="Texture2D" uid="uid://b6ufu2h2ni7g8" path="res://sprites/player/player-machinegun.png" id="3_4o20v"]
 [ext_resource type="Texture2D" uid="uid://cqwp35ddt0rab" path="res://sprites/player/player_sprites-Sheet.png" id="3_51gmf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rl1m5"]
 size = Vector2(13, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nowau"]
+atlas = ExtResource("2_jdmdk")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_01grs"]
+atlas = ExtResource("2_jdmdk")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3vdob"]
+atlas = ExtResource("2_jdmdk")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hojqj"]
+atlas = ExtResource("2_jdmdk")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ioh0"]
+atlas = ExtResource("2_jdmdk")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xoj2j"]
+atlas = ExtResource("2_jdmdk")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nr6iu"]
+atlas = ExtResource("2_jdmdk")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5q0nq"]
+atlas = ExtResource("2_jdmdk")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lnlqb"]
+atlas = ExtResource("2_jdmdk")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i8yh1"]
+atlas = ExtResource("2_jdmdk")
+region = Rect2(80, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_63p2g"]
 atlas = ExtResource("3_51gmf")
@@ -89,6 +130,65 @@ region = Rect2(96, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2skpv"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nowau")
+}],
+"loop": true,
+"name": &"blowgun_idle",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_01grs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3vdob")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_01grs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hojqj")
+}],
+"loop": true,
+"name": &"blowgun_walk_down",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ioh0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xoj2j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ioh0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nr6iu")
+}],
+"loop": true,
+"name": &"blowgun_walk_side",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5q0nq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lnlqb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5q0nq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i8yh1")
+}],
+"loop": true,
+"name": &"blowgun_walk_up",
+"speed": 12.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_63p2g")
@@ -223,9 +323,7 @@ shape = SubResource("RectangleShape2D_rl1m5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_2skpv")
-animation = &"machinegun_walk_up"
-frame = 2
-frame_progress = 0.36939
+animation = &"blowgun_walk_up"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 limit_left = 0
