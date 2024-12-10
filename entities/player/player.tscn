@@ -323,7 +323,7 @@ shape = SubResource("RectangleShape2D_rl1m5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_2skpv")
-animation = &"blowgun_walk_up"
+animation = &"default_idle"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 limit_left = 0

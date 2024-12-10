@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cm6txmo4y6kcu"]
+[gd_scene load_steps=9 format=3 uid="uid://cm6txmo4y6kcu"]
 
 [ext_resource type="Texture2D" uid="uid://beykt5t50gcp3" path="res://sprites/world/world-1.png" id="1_f6r25"]
 [ext_resource type="Script" path="res://entities/world/world_1.gd" id="1_j64mq"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://dhdiqy6rg4gr7" path="res://entities/enemies/enemy-1.tscn" id="4_67pjp"]
 [ext_resource type="PackedScene" uid="uid://dlaanq0xdbrdd" path="res://entities/power-ups/power_up_machinegun.tscn" id="5_jshfb"]
 [ext_resource type="PackedScene" uid="uid://hp6dix5oygp4" path="res://entities/power-ups/power_up_blowgun.tscn" id="6_herc6"]
+[ext_resource type="Texture2D" uid="uid://cdh25ic0wcdig" path="res://sprites/UI/UI-healthbar-red.png" id="8_i2d2e"]
+[ext_resource type="Texture2D" uid="uid://tryno0o1e5oa" path="res://sprites/UI/UI-healthbar-green.png" id="9_2k0ui"]
 
 [node name="World1" type="Node2D"]
 script = ExtResource("1_j64mq")
@@ -43,5 +45,71 @@ position = Vector2(118, 101)
 
 [node name="PowerUpBlowgun2" parent="." instance=ExtResource("6_herc6")]
 position = Vector2(54, 82)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Healthbar" type="Node2D" parent="UI"]
+position = Vector2(3, -2)
+scale = Vector2(0.75, 0.75)
+metadata/_edit_group_ = true
+
+[node name="Health" type="TextureProgressBar" parent="UI/Healthbar"]
+offset_left = 9.0
+offset_top = 9.0
+offset_right = 89.0
+offset_bottom = 31.0
+step = 0.1
+texture_under = ExtResource("8_i2d2e")
+texture_progress = ExtResource("9_2k0ui")
+
+[node name="Timer" type="Node2D" parent="UI"]
+
+[node name="TimePanel" type="PanelContainer" parent="UI/Timer"]
+offset_left = 131.0
+offset_top = 4.0
+offset_right = 180.0
+offset_bottom = 23.0
+
+[node name="CenterContainer" type="CenterContainer" parent="UI/Timer/TimePanel"]
+layout_mode = 2
+
+[node name="LevelTimeLabel" type="Label" parent="UI/Timer/TimePanel/CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+vertical_alignment = 1
+
+[node name="LevelTimer" type="Timer" parent="UI/Timer/TimePanel/CenterContainer"]
+wait_time = 5.0
+one_shot = true
+
+[node name="Score" type="Node2D" parent="UI"]
+
+[node name="ScorePanel" type="PanelContainer" parent="UI/Score"]
+offset_left = 246.0
+offset_top = 3.0
+offset_right = 303.0
+offset_bottom = 26.0
+
+[node name="CenterContainer" type="CenterContainer" parent="UI/Score/ScorePanel"]
+layout_mode = 2
+
+[node name="ScoreLabel" type="Label" parent="UI/Score/ScorePanel/CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+
+[node name="Ammo" type="Node2D" parent="UI"]
+position = Vector2(12, 161)
+metadata/_edit_group_ = true
+
+[node name="Ammopanel" type="PanelContainer" parent="UI/Ammo"]
+offset_left = -7.0
+offset_top = -9.0
+offset_right = 11.0
+offset_bottom = 10.0
+
+[node name="AmmoLabel" type="Label" parent="UI/Ammo/Ammopanel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

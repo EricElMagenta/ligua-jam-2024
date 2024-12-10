@@ -3,6 +3,7 @@ extends CharacterBody2D
 
 const SPEED = 50.0
 const DAMAGE = 8
+const SCORE_VALUE = 50
 
 var health = 10
 var player_pos
@@ -35,5 +36,5 @@ func handle_animations():
 func handle_damage_to_player():
 	for body in hitbox.get_overlapping_bodies():
 		if body is Player && !player.damage_blink:
-			player.health -= DAMAGE
+			player.health.value -= DAMAGE
 			player.on_take_damage()

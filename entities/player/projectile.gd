@@ -10,6 +10,7 @@ var spawn_pos : Vector2 # Posición de spawn
 var target_pos : Vector2 # Objetivo (donde clickeó el jugador)
 var weapon_index = 0
 
+
 # Hitbox del dulce
 @onready var collision_shape_2d = $CollisionShape2D
 @onready var animated_sprite_2d = $AnimatedSprite2D
@@ -58,6 +59,7 @@ func _on_body_entered(body):
 		if weapon_index != 2: queue_free()
 		# Elimina el enemigo si se queda sin vida
 		if body.health <= 0:
+			Events.enemy_defeated.emit()
 			body.queue_free()
 			return
 		
