@@ -89,6 +89,7 @@ swap_weapon_right={
 2d_physics/layer_3="enemies"
 2d_physics/layer_4="power-ups"
 2d_physics/layer_5="projectiles"
+2d_physics/layer_6="cars"
 
 [rendering]
 

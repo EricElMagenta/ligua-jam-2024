@@ -4,19 +4,30 @@ extends CharacterBody2D
 const SPEED = 50.0
 const DAMAGE = 8
 const SCORE_VALUE = 50
+const ROTATION_CRASH = 2
+const POWER_UP_DROP_RATE = 0.2
+
 
 var health = 10
 var player_pos
 var target_pos
+var crashed = false
+var weapons_spawn = ["machinegun", "blowgun"]
+
 
 @onready var player = get_parent().get_node("Player")
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var hitbox = $hitbox
 
 func _physics_process(delta):
-	follow_player(delta)
+	if !crashed: follow_player(delta)
+	else: a_la_mierda()
+	
 	handle_damage_to_player()
 	handle_animations()
+	if health <= 0:
+		if randf() < POWER_UP_DROP_RATE: 
+			spawn_power_up()
 
 # SEGUIR AL JUGADOR
 func follow_player(delta):
@@ -38,3 +49,17 @@ func handle_damage_to_player():
 		if body is Player && !player.damage_blink:
 			player.health.value -= DAMAGE
 			player.on_take_damage()
+
+func _on_hitbox_area_entered(area):
+	if area is Car:
+		crashed = true
+		
+func a_la_mierda():
+	rotation += ROTATION_CRASH
+	position += Vector2(-5, -5)
+
+func spawn_power_up():
+	var random_power_up = weapons_spawn[randi() % weapons_spawn.size()]
+	var power_up_instance = load("res://entities/power-ups/power_up_" + random_power_up + ".tscn").instantiate()
+	power_up_instance.position = position
+	call_deferred("add_sibling", power_up_instance)

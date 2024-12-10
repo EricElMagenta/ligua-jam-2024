@@ -313,7 +313,7 @@ size = Vector2(11, 13)
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
-collision_mask = 9
+collision_mask = 41
 script = ExtResource("1_7wm1o")
 metadata/_edit_group_ = true
 
@@ -334,7 +334,7 @@ editor_draw_limits = true
 
 [node name="hitbox" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 12
+collision_mask = 44
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
 position = Vector2(-0.5, 0)

@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3 uid="uid://cnrw8igskgeg6"]
+
+[ext_resource type="Script" path="res://entities/hazards/car.gd" id="1_6ty22"]
+[ext_resource type="Texture2D" uid="uid://r4hmxxmjoysx" path="res://sprites/hazards/car-blue.png" id="1_vpcw7"]
+[ext_resource type="Texture2D" uid="uid://cix04k6j7r8t" path="res://sprites/hazards/car-green.png" id="2_xt7w3"]
+[ext_resource type="Texture2D" uid="uid://kgfium3dad70" path="res://sprites/hazards/car-red.png" id="3_yycg2"]
+[ext_resource type="Texture2D" uid="uid://d35dsstdmq3r5" path="res://sprites/hazards/car-yellow.png" id="4_uqol5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oujww"]
+size = Vector2(48, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_api37"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_vpcw7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_xt7w3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_yycg2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_uqol5")
+}],
+"loop": true,
+"name": &"car",
+"speed": 12.0
+}]
+
+[node name="Car" type="Area2D"]
+collision_layer = 32
+collision_mask = 6
+script = ExtResource("1_6ty22")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 0
+shape = SubResource("RectangleShape2D_oujww")
+debug_color = Color(0.927014, 3.78308e-05, 0.670193, 0.42)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_api37")
+animation = &"car"

@@ -36,7 +36,7 @@ func _physics_process(delta):
 	
 	swap_weapon()
 	move_and_slide()
-	print(has_weapon)
+
 	if health.value < 1: get_tree().reload_current_scene()
 
 ######################################################################### FUNCIONES AUXILIARES ############################################
@@ -123,17 +123,6 @@ func shooting_blowgun():
 		has_weapon[2] = 0
 		weapon_index = 0
 	
-#func handle_animation(input_direction):
-#	# Caminar en diferentes direcciones (debe haber alguna mejor forma de hacer esto)
-#	if input_direction == Vector2(0,0):
-#		animated_sprite_2d.play("idle")
-#	elif input_direction[0] == 0:
-#		if input_direction[1] > 0: animated_sprite_2d.play("walk_down")
-#		elif input_direction[1] < 0: animated_sprite_2d.play("walk_up")
-#	elif input_direction[0] != 0:
-#		animated_sprite_2d.play("walk_side")
-#		if input_direction[0] < 0: animated_sprite_2d.scale.x = -1
-#		else: animated_sprite_2d.scale.x = 1
 
 func update_ammo():
 	if weapon_index == 0: return '-'
@@ -144,7 +133,6 @@ func swap_weapon():
 	if Input.is_action_just_pressed("swap_weapon_right"):
 		var swap_direction = "right"
 		var next_weapon = next_weapon_available(swap_direction)
-		print("siguiente arma:" + str(next_weapon))
 		weapon_index = next_weapon
 		
 		#var next_weapon = next_weapon_available(swap_direction)
@@ -157,32 +145,25 @@ func swap_weapon():
 	if Input.is_action_just_pressed("swap_weapon_left"):
 		var swap_direction = "left"
 		var next_weapon = next_weapon_available(swap_direction)
-		print("siguiente arma:" + str(next_weapon))
 		weapon_index = next_weapon
 		
 func next_weapon_available(swap_direction):
 	if swap_direction == "right":
 		for i in range(weapon_index+1, len(has_weapon), 1):
 			if has_weapon[i] == 1:
-				print(i)
 				return i
-				
-		print("no se encontró la weá")
 		return 0
 	
 	if swap_direction == "left":
 		if weapon_index == 0:
 			for i in range(len(has_weapon)-1, 0, -1):
 				if has_weapon[i] == 1:
-					print("Siguiente arma:" + str(i))
 					return i
 		else: 
 			for i in range(weapon_index-1, 0, -1):
 				if has_weapon[i] == 1:
-					print("Siguiente arma:" + str(i))
 					return i
-	print("no se encontró la weá")
-	return 0
+		return 0
 	
 	
 

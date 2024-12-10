@@ -101,7 +101,7 @@ size = Vector2(14, 16)
 
 [node name="Enemy1" type="CharacterBody2D"]
 collision_layer = 4
-collision_mask = 2
+collision_mask = 34
 script = ExtResource("1_yx8ga")
 metadata/_edit_group_ = true
 
@@ -113,10 +113,10 @@ sprite_frames = SubResource("SpriteFrames_slhij")
 animation = &"walk-down"
 
 [node name="hitbox" type="Area2D" parent="."]
-collision_mask = 2
+collision_mask = 34
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
 shape = SubResource("RectangleShape2D_gxrp5")
 debug_color = Color(0.745521, 0.256561, 0.945206, 0.42)
 
-[connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
