@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://c3gf2j7o5iwbc"]
+
+[ext_resource type="Texture2D" uid="uid://dxdk0bphop5a8" path="res://sprites/world/traffic-lights-Sheet.png" id="1_imdjd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1tujy"]
+atlas = ExtResource("1_imdjd")
+region = Rect2(0, 0, 36, 57)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eyv0d"]
+atlas = ExtResource("1_imdjd")
+region = Rect2(36, 0, 36, 57)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_67cnk"]
+atlas = ExtResource("1_imdjd")
+region = Rect2(72, 0, 36, 57)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_or80x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1tujy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eyv0d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1tujy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eyv0d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1tujy")
+}, {
+"duration": 35.0,
+"texture": SubResource("AtlasTexture_67cnk")
+}],
+"loop": true,
+"name": &"ALERT!",
+"speed": 4.0
+}]
+
+[node name="TrafficLight" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_or80x")
+animation = &"ALERT!"

@@ -13,6 +13,10 @@ extends Node2D
 @onready var player = $Player
 
 @onready var car_timer = $CarTimer
+@onready var lights = $UI/Lights
+@onready var traffic_light = $UI/Lights/TrafficLight
+@onready var end_panel = $UI/EndPanel
+@onready var label_score = $UI/EndPanel/PanelContainer/VBoxContainer/LabelScore
 
 var lower_spawn_rate_flag = true
 var spawn_modifier = 1.0
@@ -35,11 +39,11 @@ func _physics_process(delta):
 	traffic_time = countdown()[1]
 	if traffic_time%20==0 && level_time/1000 > 3: 
 		traffic_chaos()
+		
+	if level_time_label.text == "00:00" || player.health.value <= 0:
+		if player.health.value == 0: player.process_mode = 3
+		game_over_panel()
 	
-	#traffic_chaos()
-	#if level_time % 100 == 0: 
-	#	if timer.wait_time > 0.1 : timer.wait_time -= 0.1
-	#	else: timer.wait_time = 0.1
 	lower_spawn_rate()
 
 func countdown():
@@ -77,6 +81,21 @@ func add_score():
 	score += 1000
 	
 func traffic_chaos():
+	lights.visible = true
+	traffic_light.play("ALERT!")
+	await get_tree().create_timer(1.2).timeout
 	car_timer.start()
 	await get_tree().create_timer(5).timeout
 	car_timer.stop()
+	await get_tree().create_timer(2).timeout
+	lights.visible = false
+
+func game_over_panel():
+	get_tree().paused = true
+	label_score.text = "$" + str(score)
+	end_panel.visible = true
+
+
+func _on_button_restart_pressed():
+	get_tree().paused = false
+	get_tree().reload_current_scene()

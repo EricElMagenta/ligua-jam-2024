@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://cm6txmo4y6kcu"]
+[gd_scene load_steps=8 format=3 uid="uid://cm6txmo4y6kcu"]
 
 [ext_resource type="Texture2D" uid="uid://beykt5t50gcp3" path="res://sprites/world/world-1.png" id="1_f6r25"]
 [ext_resource type="Script" path="res://entities/world/world_1.gd" id="1_j64mq"]
 [ext_resource type="PackedScene" uid="uid://prbywccmh2ij" path="res://entities/player/player.tscn" id="2_e3civ"]
+[ext_resource type="PackedScene" uid="uid://c3gf2j7o5iwbc" path="res://entities/world/traffic_light.tscn" id="6_b0kny"]
 [ext_resource type="Texture2D" uid="uid://cdh25ic0wcdig" path="res://sprites/UI/UI-healthbar-red.png" id="8_i2d2e"]
 [ext_resource type="Texture2D" uid="uid://tryno0o1e5oa" path="res://sprites/UI/UI-healthbar-green.png" id="9_2k0ui"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f6rjt"]
 
 [node name="World1" type="Node2D"]
 script = ExtResource("1_j64mq")
@@ -68,6 +71,7 @@ wait_time = 120.0
 one_shot = true
 
 [node name="Score" type="Node2D" parent="UI"]
+metadata/_edit_group_ = true
 
 [node name="ScorePanel" type="PanelContainer" parent="UI/Score"]
 offset_left = 246.0
@@ -97,5 +101,46 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 12
 horizontal_alignment = 1
 
+[node name="Lights" type="Node2D" parent="UI"]
+visible = false
+
+[node name="TrafficLight" parent="UI/Lights" instance=ExtResource("6_b0kny")]
+position = Vector2(298, 49)
+scale = Vector2(0.583333, 0.583333)
+
+[node name="EndPanel" type="Node2D" parent="UI"]
+process_mode = 3
+visible = false
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/EndPanel"]
+offset_left = 84.0
+offset_top = 49.0
+offset_right = 225.0
+offset_bottom = 137.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/EndPanel/PanelContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="LabelScore" type="Label" parent="UI/EndPanel/PanelContainer/VBoxContainer"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="ButtonRestart" type="Button" parent="UI/EndPanel/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_f6rjt")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_f6rjt")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_f6rjt")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_f6rjt")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_f6rjt")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_f6rjt")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_f6rjt")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_f6rjt")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_f6rjt")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_f6rjt")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_f6rjt")
+text = "Reiniciar"
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="CarTimer" to="." method="_on_car_timer_timeout"]
+[connection signal="pressed" from="UI/EndPanel/PanelContainer/VBoxContainer/ButtonRestart" to="." method="_on_button_restart_pressed"]

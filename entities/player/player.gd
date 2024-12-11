@@ -10,6 +10,7 @@ var damage_blink = false # INVENCIBILIDAD DESPUÉS DE RECIBIR DAÑO
 var weapon_index = 0
 var current_anim_state = "idle"
 var has_weapon = [1, 0, 0]
+var defeated : bool
 
 # MUNICIONES
 var machinegun_ammo = 0
@@ -22,9 +23,14 @@ var score = 0
 @onready var health = $"../UI/Healthbar/Health"
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var projectile = load("res://entities/player/projectile.tscn")
+@onready var collision_shape_2d = $CollisionShape2D
+@onready var camera_2d = $Camera2D
 
 func _ready():
 	health.value = HEALTH_MAX
+	collision_shape_2d.disabled = false
+	defeated = false
+	process_mode = 0
 
 func _physics_process(delta):
 	var input_direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
@@ -33,11 +39,14 @@ func _physics_process(delta):
 	if weapon_index == 0: shooting_default()
 	elif weapon_index == 1: shooting_machinegun()
 	elif weapon_index == 2: shooting_blowgun()
-	
 	swap_weapon()
 	move_and_slide()
 
-	if health.value < 1: get_tree().reload_current_scene()
+	if health.value < 1:
+		defeated = true
+		collision_shape_2d.disabled = true
+		player_defeated()
+		#get_tree().reload_current_scene()
 
 ######################################################################### FUNCIONES AUXILIARES ############################################
 func handle_movement(input_direction):
@@ -45,12 +54,13 @@ func handle_movement(input_direction):
 
 func on_take_damage():
 	# Inmunidad post-daño
-	damage_blink = true
-	for i in 4: # Parpadear después de que te peguen
-		self.modulate.a = 0
-		await get_tree().create_timer(0.2).timeout
-		self.modulate.a = 1
-		await get_tree().create_timer(0.2).timeout
+	if health.value > 8: damage_blink = true
+	if damage_blink:
+		for i in 4: # Parpadear después de que te peguen
+			self.modulate.a = 0
+			await get_tree().create_timer(0.2).timeout
+			self.modulate.a = 1
+			await get_tree().create_timer(0.2).timeout
 	damage_blink = false
 
 func handle_animation(input_direction):
@@ -165,17 +175,18 @@ func next_weapon_available(swap_direction):
 					return i
 		return 0
 	
-	
+func player_defeated():
+	rotation += 1
+	position += Vector2(-5, -5)
 
 ######################################################################### SEÑALES ##############################################################
 func _on_hitbox_area_entered(area):
 	if area is PowerUp:
 		if area.type == "machinegun":
 			machinegun_ammo += 20
-			weapon_index = 1
-			has_weapon[weapon_index] = 1
+			has_weapon[1] = 1
+			
 		elif area.type == "blowgun":
 			blowgun_ammo += 30
-			weapon_index = 2
-			has_weapon[weapon_index] = 1
+			has_weapon[2] = 1
 		area.queue_free()

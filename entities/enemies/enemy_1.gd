@@ -63,3 +63,7 @@ func spawn_power_up():
 	var power_up_instance = load("res://entities/power-ups/power_up_" + random_power_up + ".tscn").instantiate()
 	power_up_instance.position = position
 	call_deferred("add_sibling", power_up_instance)
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited():
+	queue_free()
