@@ -1,8 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://ct6l6h50e16lx"]
+[gd_scene load_steps=19 format=3 uid="uid://ct6l6h50e16lx"]
 
 [ext_resource type="Script" path="res://entities/player/projectile.gd" id="1_8uaba"]
 [ext_resource type="Texture2D" uid="uid://n7bie1oy5u45" path="res://sprites/candies/splort-1-Sheet.png" id="2_2771g"]
 [ext_resource type="Texture2D" uid="uid://csy65vtr8rdq" path="res://sprites/candies/dulces-sprites-smaller-Sheet.png" id="3_rrglv"]
+[ext_resource type="AudioStream" uid="uid://bjm6g2hll5osw" path="res://sounds/default_throw.wav" id="4_ebjb7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s8bav"]
 atlas = ExtResource("2_2771g")
@@ -118,5 +119,11 @@ animation = &"candies"
 position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_sl0vs")
 debug_color = Color(0.88273, 0.000332295, 0.815434, 0.42)
+
+[node name="SFX" type="Node" parent="."]
+
+[node name="SFXDefaultThrow" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("4_ebjb7")
+volume_db = -11.837
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

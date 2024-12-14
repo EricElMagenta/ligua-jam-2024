@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="ligua-jam"
-run/main_scene="res://entities/world/world_1.tscn"
+run/main_scene="res://entities/UI/main_menu.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Events="*res://events.gd"
+GlobalMusic="*res://entities/world/global_music.tscn"
 
 [display]
 

@@ -1,9 +1,12 @@
-[gd_scene load_steps=38 format=3 uid="uid://prbywccmh2ij"]
+[gd_scene load_steps=41 format=3 uid="uid://prbywccmh2ij"]
 
 [ext_resource type="Script" path="res://entities/player/player.gd" id="1_7wm1o"]
 [ext_resource type="Texture2D" uid="uid://dg6ffpiu2436a" path="res://sprites/player/player_blowgun.png" id="2_jdmdk"]
 [ext_resource type="Texture2D" uid="uid://b6ufu2h2ni7g8" path="res://sprites/player/player-machinegun.png" id="3_4o20v"]
 [ext_resource type="Texture2D" uid="uid://cqwp35ddt0rab" path="res://sprites/player/player_sprites-Sheet.png" id="3_51gmf"]
+[ext_resource type="AudioStream" uid="uid://0a3mbbvfexq0" path="res://sounds/damage.wav" id="5_lmtg1"]
+[ext_resource type="AudioStream" uid="uid://d3j2n8cv6w2ii" path="res://sounds/powerUp.wav" id="6_wjo5n"]
+[ext_resource type="AudioStream" uid="uid://bw4rrleljlb5l" path="res://sounds/swapping.wav" id="7_i4aan"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rl1m5"]
 size = Vector2(13, 14)
@@ -329,7 +332,7 @@ animation = &"default_idle"
 limit_left = 0
 limit_top = 0
 limit_right = 460
-limit_bottom = 256
+limit_bottom = 303
 editor_draw_limits = true
 
 [node name="hitbox" type="Area2D" parent="."]
@@ -340,5 +343,19 @@ collision_mask = 44
 position = Vector2(-0.5, 1.75)
 shape = SubResource("RectangleShape2D_w3e6h")
 debug_color = Color(0.552139, 0.400483, 1, 0.42)
+
+[node name="SFX" type="Node" parent="."]
+
+[node name="SFXDamage" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("5_lmtg1")
+volume_db = -11.473
+
+[node name="SFXPowerUp" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("6_wjo5n")
+volume_db = -4.183
+
+[node name="SFXSwapping" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("7_i4aan")
+volume_db = -8.262
 
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]

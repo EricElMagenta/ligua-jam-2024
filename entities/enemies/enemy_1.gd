@@ -14,14 +14,19 @@ var target_pos
 var crashed = false
 var weapons_spawn = ["machinegun", "blowgun"]
 
+# AUDIO
+@onready var sfx_car_crash = $SFX/SFXCarCrash
+
 
 @onready var player = get_parent().get_node("Player")
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var hitbox = $hitbox
+@onready var collision_shape_2d = $hitbox/CollisionShape2D
 
 func _physics_process(delta):
 	if !crashed: follow_player(delta)
-	else: a_la_mierda()
+	else: 
+		a_la_mierda()
 	
 	handle_damage_to_player()
 	handle_animations()
@@ -52,11 +57,14 @@ func handle_damage_to_player():
 
 func _on_hitbox_area_entered(area):
 	if area is Car:
+		sfx_car_crash.play()
 		crashed = true
 		
 func a_la_mierda():
+	collision_shape_2d.disabled = true
 	rotation += ROTATION_CRASH
 	position += Vector2(-5, -5)
+	
 
 func spawn_power_up():
 	var random_power_up = weapons_spawn[randi() % weapons_spawn.size()]

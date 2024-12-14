@@ -20,6 +20,11 @@ var ammo = 0
 # PUNTAJE
 var score = 0
 
+# AUDIO
+@onready var sfx_damage = $SFX/SFXDamage
+@onready var sfx_power_up = $SFX/SFXPowerUp
+@onready var sfx_swapping = $SFX/SFXSwapping
+
 @onready var health = $"../UI/Healthbar/Health"
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var projectile = load("res://entities/player/projectile.tscn")
@@ -41,7 +46,6 @@ func _physics_process(delta):
 	elif weapon_index == 2: shooting_blowgun()
 	swap_weapon()
 	move_and_slide()
-
 	if health.value < 1:
 		defeated = true
 		collision_shape_2d.disabled = true
@@ -53,6 +57,7 @@ func handle_movement(input_direction):
 	if !is_on_wall() || !is_on_ceiling() : velocity = input_direction * SPEED
 
 func on_take_damage():
+	sfx_damage.play()
 	# Inmunidad post-daño
 	if health.value > 8: damage_blink = true
 	if damage_blink:
@@ -161,6 +166,7 @@ func next_weapon_available(swap_direction):
 	if swap_direction == "right":
 		for i in range(weapon_index+1, len(has_weapon), 1):
 			if has_weapon[i] == 1:
+				sfx_swapping.play()
 				return i
 		return 0
 	
@@ -168,10 +174,12 @@ func next_weapon_available(swap_direction):
 		if weapon_index == 0:
 			for i in range(len(has_weapon)-1, 0, -1):
 				if has_weapon[i] == 1:
+					sfx_swapping.play()
 					return i
 		else: 
 			for i in range(weapon_index-1, 0, -1):
 				if has_weapon[i] == 1:
+					sfx_swapping.play()
 					return i
 		return 0
 	
@@ -182,6 +190,7 @@ func player_defeated():
 ######################################################################### SEÑALES ##############################################################
 func _on_hitbox_area_entered(area):
 	if area is PowerUp:
+		sfx_power_up.play()
 		if area.type == "machinegun":
 			machinegun_ammo += 20
 			has_weapon[1] = 1

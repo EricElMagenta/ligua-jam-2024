@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://wgl45mo1s0ps"]
+
+[ext_resource type="AudioStream" uid="uid://dt8xy0xjwooos" path="res://sounds/Getting it Done.wav" id="1_e7gv7"]
+
+[node name="GlobalMusic" type="AudioStreamPlayer"]
+process_mode = 3
+stream = ExtResource("1_e7gv7")
+volume_db = -15.265
+autoplay = true
+bus = &"Music"

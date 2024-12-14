@@ -10,6 +10,9 @@ var spawn_pos : Vector2 # Posición de spawn
 var target_pos : Vector2 # Objetivo (donde clickeó el jugador)
 var weapon_index = 0
 
+# AUDIO
+@onready var sfx_default_throw = $SFX/SFXDefaultThrow
+
 
 # Hitbox del dulce
 @onready var collision_shape_2d = $CollisionShape2D
@@ -19,6 +22,7 @@ var weapon_index = 0
 func _ready():
 	global_position = spawn_pos
 	animated_sprite_2d.frame = int(randi_range(0,4)) # Sprite random
+	sfx_default_throw.play()
 
 func _physics_process(delta):
 	rotation += ROTATION_SPEED
